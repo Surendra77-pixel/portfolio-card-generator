@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevCard — Portfolio Card Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="live.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-dot"></span>
+    DevCard
+  </div>
+  <span class="badge">@surendra</span>
+</header>
+
+<div class="app">
+  <!-- ── Form Panel ── -->
+  <div class="form-panel">
+    <div class="panel-label">Your Details</div>
+
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" id="name" placeholder="Your Name" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Role / Title</label>
+      <input type="text" id="role" placeholder="Your Role" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Short Bio</label>
+      <textarea id="bio" placeholder="Your short bio will appear here…" oninput="update()"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Skills <span class="skills-hint">(comma-separated)</span></label>
+      <input type="text" id="skills" placeholder="your, skills" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Avatar Photo (optional)</label>
+      <div class="avatar-upload">
+        <div class="avatar-preview" id="avatar-preview">
+          <img id="avatar-img" src="" alt="">
+          <span id="avatar-placeholder">👤</span>
+        </div>
+        <div class="avatar-btn" onclick="document.getElementById('file-input').click()">
+          Click to upload photo
+        </div>
+        <input type="file" id="file-input" accept="image/*" onchange="handlePhoto(event)">
+      </div>
+    </div>
+
+    <div class="section-divider">Socials</div>
+
+    <div class="field">
+      <label>GitHub</label>
+      <input type="text" id="github" placeholder="username" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Twitter / X</label>
+      <input type="text" id="twitter" placeholder="@handle" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>LinkedIn</label>
+      <input type="text" id="linkedin" placeholder="linkedin.com/in/username" oninput="update()">
+    </div>
+
+    <div class="field">
+      <label>Website</label>
+      <input type="text" id="website" placeholder="yoursite.dev" oninput="update()">
+    </div>
+
+    <div class="section-divider">Card Theme</div>
+
+    <div class="theme-grid">
+      <div class="theme-btn active" data-theme="dark"
+        style="background: linear-gradient(135deg, #0f0f17 0%, #1a1a26 100%);"
+        onclick="setTheme('dark', this)"></div>
+      <div class="theme-btn" data-theme="light"
+        style="background: linear-gradient(135deg, #f5f4f0 0%, #ffffff 100%);"
+        onclick="setTheme('light', this)"></div>
+      <div class="theme-btn" data-theme="ocean"
+        style="background: linear-gradient(135deg, #020b18 0%, #051a2e 100%);"
+        onclick="setTheme('ocean', this)"></div>
+      <div class="theme-btn" data-theme="ember"
+        style="background: linear-gradient(135deg, #110809 0%, #1a0c10 100%);"
+        onclick="setTheme('ember', this)"></div>
+    </div>
+  </div>
+
+  <!-- ── Preview Panel ── -->
+  <div class="preview-panel">
+    <div class="preview-label"><span class="live-dot"></span> Live Preview</div>
+
+    <div id="card-container">
+      <div class="card theme-dark" id="the-card">
+        <div class="card-accent-bar"></div>
+        <div class="card-glow"></div>
+        <div class="card-header">
+          <div class="card-avatar" id="card-avatar">
+            <img class="card-avatar-photo" id="card-photo" src="" alt="">
+            <span class="card-avatar-initials" id="card-initials">?</span>
+          </div>
+          <div class="card-info">
+            <div class="card-name" id="card-name">Your Name</div>
+            <div class="card-role" id="card-role">Your Role</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-bio" id="card-bio">Your short bio will appear here…</div>
+          <div class="card-skills" id="card-skills">
+            <span class="skill-tag">Skill 1</span>
+            <span class="skill-tag">Skill 2</span>
+            <span class="skill-tag">Skill 3</span>
+          </div>
+        </div>
+        <div class="card-footer" id="card-footer">
+          <span class="social-link" style="color: var(--c-sub); font-family: var(--mono); font-size: 0.75rem;">
+            Fill in your details →
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="download-btn" onclick="downloadCard()">
+        ⬇ Download PNG
+      </button>
+      <button class="btn btn-secondary" id="copy-btn" onclick="copyHTML()">
+        ⎘ Copy HTML
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
